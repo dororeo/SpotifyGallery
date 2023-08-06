@@ -1,4 +1,17 @@
+.customized-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 400px;
+  margin-left: 0px;
 
+}
+
+.text {
+  margin-top: 25px;
+  font-size: 10px;
+  font-weight: bold;
+}
 
 .App {
   text-align: center;
@@ -6,11 +19,17 @@
 }
 
 .button {
-  padding: 15px;
-  background-color: #1cd05d;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  /* background-color: #1cd05d; */
+  background-color: black;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   text-decoration: none;
-  color: black;
+  color: white;
   font-weight: bold;
   font-size: 10px;
   border-radius: 5px;
@@ -18,4 +37,13 @@
   align-items: center;
   justify-content: center;
   display: inline;
+}
+
+.choices {
+  display: inline;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  text-align: center;
+  padding: 5px;
 }
