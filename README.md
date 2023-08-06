@@ -8,3 +8,4 @@ Task flow:
 3. Call API with Axios
 4. Render data frontend
 5. App styling 
+
