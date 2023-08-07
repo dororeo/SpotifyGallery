@@ -118,10 +118,10 @@ const Home = () => {
                 <h5 id='choice-text'>Top Tracks</h5>
 
                 <input className='radio' type='radio' id='last-month' name='result-type' value="Last Month" onClick={getLastMonthsTracks}/>
-                <label className='radio'>Last Month</label>
+                <label className='radio'>LAST MONTH</label>
 
                 <input className='radio' type='radio' id='all-time' name='result-type' value="All Time" onClick={getAllTimeTracks}/>
-                <label className='radio'>All Time</label>
+                <label className='radio'>ALL TIME</label>
 
                 {/* <input type='checkbox' id='btnControl' />
                 <label className='toggle-button' for="btnControl" onClick={getLastMonthsTracks}>Last Month</label>
