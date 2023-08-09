@@ -5,8 +5,21 @@ The Spotify Gallery App is a web application that allows users to discover their
 
 ## Table of Contents
 
+- [Introduction](#introduction)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
+- [Wireframes](#wireframes)
+- [User Stories](#user-stories)
+- [Planning and Development Process](#planning-and-development-process)
+
+## Introduction
+With the Spotify API, the idea is to generate a user’s “Spotify Gallery”, by accessing Spotify Artist thumbnails, Album and Song cover art images to show monthly top artist, songs, and albums.
+
+![](./media/intro01.png)
+
+Inspired by tumblr blogroll pages, blogrolls show a list of people you’re following. It visually “rolls out” the profile images of the users you follow. 
+
+![](./media/intro02.png)
 
 ## Features
 
@@ -28,6 +41,20 @@ The Spotify Gallery App is a web application that allows users to discover their
 
 ## Wireframes
 
+**App Flow Visualisation**
+
+![](./media/wireframe01.png)
+
+**Low-Res Prototype**
+
+![](./media/prototype01.png)
+
+**Additional Features Added:**
+
+- Last Month & All Time toggle using radio buttons
+- Save Image and Log Out buttons
+
+
 ## User Stories
 
 **The User is able to:**
@@ -41,3 +68,19 @@ The Spotify Gallery App is a web application that allows users to discover their
 - **Capture and Download Screenshots:** The app offers a feature to capture a screenshot of the personalised gallery layout. Users can download this screenshot to keep a record of their top tracks and artists.
 
 - **Log Out Securely:** Users can log out of the app whenever they're done exploring. This ensures the security and privacy of their Spotify data and personal information.
+
+## Planning and Development Process
+
+### Task Flow
+
+- Authentication and Login with Spotify
+- Routes (pages)
+- Call API with Axios
+- Render data frontend
+- App styling
+
+### Unsolved Problems
+
+- **Users without access cannot use the app:** Due to the API regulations, only Spotify users with given access can use the app in development mode. Not really an unsolved problem, more of a limitation.
+
+- **Screenshot feature not compatible on all mobile browsers:** The save image feature is not fully functional on mobile browsers.
