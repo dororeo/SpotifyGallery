@@ -174,11 +174,19 @@ const Home = () => {
     }
 
     const handleClickA = () => {
+        if (!token) {
+            alert("Please log in to view your top artists.");
+            return;
+        }
         getTopArtists();
         changeColorA();
     }
 
     const handleClickT = () => {
+        if (!token) {
+            alert("Please log in to view your top artists.");
+            return;
+        }
         getTopTracks();
         changeColorT();
     }
@@ -198,6 +206,10 @@ const Home = () => {
     }
     
     const downloadImg = () => {
+        if (!token) {
+            alert("Please log in to view your top artists.");
+            return;
+        }
         const container = document.getElementById('screenshot');
         
         const backgroundColor = '#ffffff';
@@ -218,16 +230,6 @@ const Home = () => {
     useEffect(() => {
         setToken(localStorage.getItem('token'));
     }, [token]);
-
-    useEffect(() => {
-        const storedToken = localStorage.getItem('token');
-        if (!storedToken) {
-            alert("Please log in again.");
-            window.location.href = "https://spotify-gallery-git-main-dororeo.vercel.app/";
-        } else {
-            setToken(storedToken);
-        }
-    }, []);
 
     useEffect(() => {
         if(window.location.hash){
