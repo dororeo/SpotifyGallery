@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { useEffect , useState} from 'react';
 import moment from 'moment';
-import html2canvas from 'html2canvas';
-
+import domtoimage from 'dom-to-image';
 
 
 
@@ -197,19 +196,24 @@ const Home = () => {
         setAllTimeTracks(false);
         getData(TOP_TRACKS_ENDPOINT, setTopTracks); 
     }
-
+    
     const downloadImg = () => {
-        const gallery = document.getElementById('screenshot');
-        html2canvas(gallery, {
-            backgroundColor:"black",
-            allowTaint:"true",
-        }).then((canvas) => {
+        const container = document.getElementById('screenshot');
+        
+        const backgroundColor = '#ffffff';
+        const quality = 1.0;
+        
+        domtoimage.toJpeg(container, { quality, backgroundColor }) 
+          .then(dataUrl => {
             const link = document.createElement('a');
-            link.download = 'gallery.png';
-            link.href = canvas.toDataURL('image/png');
+            link.download = 'gallery.jpg';
+            link.href = dataUrl;
             link.click();
-        })
-    }
+          })
+          .catch(error => {
+            console.error('Error capturing screenshot:', error);
+          });
+      };     
 
     useEffect(() => {
         setToken(localStorage.getItem('token'));
@@ -233,7 +237,7 @@ const Home = () => {
 
 
     return ( 
-        <div>
+        <div className='whole-page'>
             <h2>Spotify Gallery</h2>
                 <h4>Discover Your Top Tracks & Artists</h4>
                 <button className='button' id='topA' onClick={handleClickA}>TOP ARTISTS</button>
@@ -250,10 +254,10 @@ const Home = () => {
                 <div className='choice-container'>
                 <h4>Top Tracks</h4>
 
-                <input className='radio' type='radio' id='last-month' name='result-type' value="Last Month" onClick={handleMonthResultT}/>
+                <input className='radio' type='radio' id='last-month' name='result-type' value="Last Month" onClick={handleMonthResultT} style={{ backgroundColor: '#1DB954' }}/>
                 <label className='radio'>Last Month</label>
 
-                <input className='radio' type='radio' id='all-time' name='result-type' value="All Time" onClick={handleAllTimeResultT}/>
+                <input className='radio' type='radio' id='all-time' name='result-type' value="All Time" onClick={handleAllTimeResultT} style={{ backgroundColor: '#1DB954' }}/>
                 <label className='radio'>All Time</label>
 
                 </div>
@@ -269,7 +273,7 @@ const Home = () => {
                     }else if(index >= 1){
                         return (
                             <div key={index} className='item-container'>
-                                <img className='grid-img' src={track.album.images[1].url} width={"100px"}/>
+                                <img className='grid-img' src={track.album.images[0].url} width={"100px"}/>
                                 <div className='grid-title'>{track.name}</div>
                             </div>
                         )
@@ -283,10 +287,10 @@ const Home = () => {
                 <div className='choice-container'>
                 <h4>Top Artists</h4>
 
-                <input className='radio' type='radio' id='last-month' name='result-type' value="Last Month" onClick={handleMonthResultA}/>
+                <input className='radio' type='radio' id='last-month' name='result-type' value="Last Month" onClick={handleMonthResultA} style={{ backgroundColor: '#1DB954' }}/>
                 <label className='radio'><span>Last Month</span></label>
 
-                <input className='radio' type='radio' id='all-time' name='result-type' value="All Time" onClick={handleAllTimeResultA}/>
+                <input className='radio' type='radio' id='all-time' name='result-type' value="All Time" onClick={handleAllTimeResultA} style={{ backgroundColor: '#1DB954' }}/>
                 <label className='radio'><span>All Time</span></label>
 
                 </div>
@@ -302,7 +306,7 @@ const Home = () => {
                     }else if(index >= 1){
                     return (
                         <div key={index} className='item-container'>
-                            <img className='grid-img' src={artist.images[1].url} width={"100px"}/>
+                            <img className='grid-img' src={artist.images[0].url} width={"100px"}/>
                             <div className='grid-title'>{artist.name}</div>
                         </div>
                     )

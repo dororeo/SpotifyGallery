@@ -1,12 +1,16 @@
-#screenshot {
-  width: 400px;
+.whole-page {
+  width: 500px;
   margin: 0 auto;
+}
+
+#screenshot {
+  width: 500px;
   height: auto;
 }
 
 #username {
   color: #1DB954;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .app-container {
@@ -70,7 +74,8 @@ img {
   text-align: center;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
   color: white;
-  padding: 100px;
+  padding-top: 100px;
+  padding-bottom: 50px;
 }
 
 .radio {
