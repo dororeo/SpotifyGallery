@@ -53,7 +53,8 @@ Inspired by tumblr blogroll pages, blogrolls show a list of people you’re foll
 
 - Last Month & All Time toggle using radio buttons
 - Save Image and Log Out buttons
-
+- '/*' page for non-existent routes
+![](./media/404.png)
 
 ## User Stories
 
