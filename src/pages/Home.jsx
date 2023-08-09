@@ -1,22 +1,36 @@
 import axios, { all } from 'axios';
 import { useEffect , useState} from 'react';
-
+import moment from 'moment';
+import html2canvas from 'html2canvas';
 
 
 const Home = () => {
     const [token, setToken] = useState('');
+
+    const [profile, setProfile] = useState({});
+
+    const date = moment().format("ddd DD MMM");
+    const time = moment().format("HH:mm");
+
     const [topArtists, setTopArtists] = useState({});
     const [topTracks, setTopTracks] = useState({});
+
     const [clickTopArtists, setClickTopArtists] = useState(false);
+    const [lastMonthArtists, setLastMonthArtists] = useState(false);
+    const [allTimeArtists, setAllTimeArtists] = useState(false);
+
     const [clickTopTracks, setClickTopTracks] = useState(false);
-    const [lastMonthTracks, setLastMonthTracks] = useState(true);
+    const [lastMonthTracks, setLastMonthTracks] = useState(false);
     const [allTimeTracks, setAllTimeTracks] = useState(false);
 
-    const TOP_ARTISTS_ENDPOINT = "https://api.spotify.com/v1/me/top/artists?time_range=short_term&offset=0&limit=10"
-    const TOP_TRACKS_ENDPOINT = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&offset=0&limit=10"
+    const PROFILE_ENDPOINT = "https://api.spotify.com/v1/me";
 
-    const ALL_TIME_ARTISTS_ENDPOINT = "https://api.spotify.com/v1/me/top/artists?time_range=long_term&offset=0&limit=10"
-    const ALL_TIME_TRACKS_ENDPOINT = "https://api.spotify.com/v1/me/top/tracks?time_range=long_term&offset=0&limit=10"
+    const TOP_ARTISTS_ENDPOINT = "https://api.spotify.com/v1/me/top/artists?time_range=short_term&offset=0&limit=10";
+    const ALL_TIME_ARTISTS_ENDPOINT = "https://api.spotify.com/v1/me/top/artists?time_range=long_term&offset=0&limit=10";
+
+    const TOP_TRACKS_ENDPOINT = "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&offset=0&limit=10";
+    const ALL_TIME_TRACKS_ENDPOINT = "https://api.spotify.com/v1/me/top/tracks?time_range=long_term&offset=0&limit=10";
+
 
     const getParamsfromHash = (hash) => {
         const hashContent = hash.substring(1);
@@ -43,22 +57,97 @@ const Home = () => {
         })
     }
 
+    const handleMonthResultT = () => {
+        setLastMonthTracks((prevState) => {
+            if(prevState === true){
+                return prevState
+            }else {
+                setLastMonthTracks(true)               
+            }
+        })
+        setAllTimeTracks((prevState) => {
+            if(prevState === false){
+                return prevState
+            }else {
+                setAllTimeTracks(false)               
+            }
+        })
+        if(lastMonthTracks === true && allTimeTracks === false){
+            radioToggle();
+            //end point === TOP TRACKS ENDPOINT
+        }
+    }
 
-    const getLastMonthsTracks = () => {
-        setAllTimeTracks(false);
-        setLastMonthTracks(true);
-        console.log("last month")
-        if(lastMonthTracks === true){
+    const handleAllTimeResultT = () => {
+        setAllTimeTracks((prevState) => {
+            if(prevState === true){
+                return prevState
+            }else {
+                setAllTimeTracks(true)              
+            }
+        })
+        setLastMonthTracks((prevState) => {
+            if(prevState === false){
+                return prevState
+            }else {
+                setLastMonthTracks(false)              
+            }
+        })
+        if(allTimeTracks === true && lastMonthTracks === false){
             radioToggle();
         }
     }
 
-    const getAllTimeTracks = () => {
-        setLastMonthTracks(false);
-        setAllTimeTracks(true);
-        console.log("all time")
-        if(allTimeTracks === true){
+    const handleMonthResultA = () => {
+        setLastMonthArtists((prevState) => {
+            if(prevState === true){
+                return prevState
+            }else {
+                setLastMonthArtists(true)               
+            }
+        })
+        setAllTimeArtists((prevState) => {
+            if(prevState === false){
+                return prevState
+            }else {
+                setAllTimeArtists(false)               
+            }
+        })
+        if(lastMonthArtists === true && allTimeArtists === false){
             radioToggle();
+        }
+    }
+
+    const handleAllTimeResultA = () => {
+        setAllTimeArtists((prevState) => {
+            if(prevState === true){
+                return prevState
+            }else {
+                setAllTimeArtists(true)              
+            }
+        })
+        setLastMonthArtists((prevState) => {
+            if(prevState === false){
+                return prevState
+            }else {
+                setLastMonthArtists(false)              
+            }
+        })
+        if(allTimeArtists === true && lastMonthArtists === false){
+            radioToggle();
+        }
+    }
+
+    const radioToggle = () => {
+        if(lastMonthTracks === true && allTimeTracks === false){
+            getData(TOP_TRACKS_ENDPOINT, setTopTracks);
+        }else if (allTimeTracks === true && lastMonthTracks === false){
+            getData(ALL_TIME_TRACKS_ENDPOINT, setTopTracks); 
+        }
+        if(lastMonthArtists === true && allTimeArtists === false){
+            getData(TOP_ARTISTS_ENDPOINT, setTopArtists);
+        }else{
+            getData(ALL_TIME_ARTISTS_ENDPOINT, setTopArtists); 
         }
     }
 
@@ -68,22 +157,23 @@ const Home = () => {
         getData(TOP_ARTISTS_ENDPOINT, setTopArtists);
     }
 
-    const radioToggle = () => {
-        if(!lastMonthTracks){
-            getData(ALL_TIME_TRACKS_ENDPOINT, setTopTracks);
-            console.log(topTracks)
-        }else{
-            getData(TOP_TRACKS_ENDPOINT, setTopTracks); 
-            console.log(topTracks)
-        }
-    }
-
     const getTopTracks = () => {
         setClickTopArtists(false);
         setClickTopTracks(true);
         setLastMonthTracks(true);
         setAllTimeTracks(false);
         getData(TOP_TRACKS_ENDPOINT, setTopTracks); 
+    }
+
+    const downloadImg = () => {
+        const table = document.getElementById('screenshot')
+
+        html2canvas(table).then((canvas) => {
+            const link = document.createElement('a');
+            link.download = 'table.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        })
     }
 
     useEffect(() => {
@@ -98,10 +188,13 @@ const Home = () => {
             setToken(token.access_token);
             window.history.pushState({}, null, '/home');
         }
-        
+        getData(PROFILE_ENDPOINT, setProfile);
     },[])
+
+
     return ( 
         <div>
+        <div id='screenshot'>
             <h2>Spotify Gallery</h2>
                 <h4>Discover Your Top Tracks & Artists</h4>
                 <button className='button' onClick={getTopArtists}>TOP ARTISTS</button>
@@ -109,42 +202,34 @@ const Home = () => {
             {token &&
             <div>
                 <div className='customized-container'>
-                <div className='text'>Hi User Name!</div>
-                <div className='text'>Current Date and Time</div>
+                <div className='text'>Hi {profile.display_name}!</div>
+                <div className='text'>{date + " " + time}</div>
                 </div>
                 {topTracks.items && clickTopTracks &&
                 <div>
                 <div className='choice-container'>
                 <h5 id='choice-text'>Top Tracks</h5>
 
-                <input className='radio' type='radio' id='last-month' name='result-type' value="Last Month" onClick={getLastMonthsTracks}/>
-                <label className='radio'>LAST MONTH</label>
+                <input className='radio' type='radio' id='last-month' name='result-type' value="Last Month" onClick={handleMonthResultT}/>
+                <label className='radio'>Last Month</label>
 
-                <input className='radio' type='radio' id='all-time' name='result-type' value="All Time" onClick={getAllTimeTracks}/>
-                <label className='radio'>ALL TIME</label>
+                <input className='radio' type='radio' id='all-time' name='result-type' value="All Time" onClick={handleAllTimeResultT}/>
+                <label className='radio'>All Time</label>
 
-                {/* <input type='checkbox' id='btnControl' />
-                <label className='toggle-button' for="btnControl" onClick={getLastMonthsTracks}>Last Month</label>
-
-                <input type='checkbox' id='btnControl' />
-                <label className='toggle-button' for="btnControl" onClick={getAllTimeTracks}>All Time</label> */}
-
-                {/* <button className='toggle-button' id='month' onClick={getLastMonthsTracks}>Last Month</button>
-                <button className='toggle-button' onClick={getAllTimeTracks}>All Time</button> */}
                 </div>
                 <div className='grid-container'>
                 {topTracks.items.map((track, index) => {
                     if(index === 0){
                         return (
                             <div key={index}>
-                                <img src={track.album.images[0].url} width={"300px"}/>
+                                <img src={track.album.images[0].url} width={"350px"}/>
                                 <div className='grid-title'>{track.name}</div>
                             </div>
                         )
                     }else if(index >= 1){
                         return (
                             <div key={index} className='item-container'>
-                                <img className='grid-img' src={track.album.images[1].url} width={"95px"}/>
+                                <img className='grid-img' src={track.album.images[1].url} width={"100px"}/>
                                 <div className='grid-title'>{track.name}</div>
                             </div>
                         )
@@ -156,21 +241,28 @@ const Home = () => {
                 {topArtists.items && clickTopArtists &&
                 <div>
                 <div className='choice-container'>
-                <h5>Top Artist</h5>
+                <h5 id='choice-text'>Top Artist</h5>
+
+                <input className='radio' type='radio' id='last-month' name='result-type' value="Last Month" onClick={handleMonthResultA}/>
+                <label className='radio'>Last Month</label>
+
+                <input className='radio' type='radio' id='all-time' name='result-type' value="All Time" onClick={handleAllTimeResultA}/>
+                <label className='radio'>All Time</label>
+
                 </div>
                 <div className='grid-container'>
                 {topArtists.items.map((artist, index) => {
                      if(index === 0){
                         return (
                             <div key={index}>
-                                <img src={artist.images[0].url} width={"300px"}/>
+                                <img src={artist.images[0].url} width={"350px"}/>
                                 <div className='grid-title'>{artist.name}</div>
                             </div>
                         )
                     }else if(index >= 1){
                     return (
                         <div key={index} className='item-container'>
-                            <img className='grid-img' src={artist.images[1].url} width={"95px"}/>
+                            <img className='grid-img' src={artist.images[1].url} width={"100px"}/>
                             <div className='grid-title'>{artist.name}</div>
                         </div>
                     )
@@ -185,6 +277,8 @@ const Home = () => {
                 </div>
             </div>
             }
+        </div>
+        <button className='button' onClick={downloadImg}>Save Image</button>
         </div>
      );
 }
