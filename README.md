@@ -83,4 +83,4 @@ Inspired by tumblr blogroll pages, blogrolls show a list of people you’re foll
 
 - **Users without access cannot use the app:** Due to the API regulations, only Spotify users with given access can use the app in development mode. Not really an unsolved problem, more of a limitation.
 
-- **Screenshot feature not compatible on all mobile browsers:** The save image feature is not fully functional on mobile browsers.
+- **Screenshot feature not compatible on mobile browsers:** The save image feature is not fully functional on mobile browsers.
