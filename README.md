@@ -52,8 +52,10 @@ Inspired by tumblr blogroll pages, blogrolls show a list of people you’re foll
 **Additional Features Added:**
 
 - Last Month & All Time toggle using radio buttons
-- Save Image and Log Out buttons
+- Save Image and Log Out functions
+- Alert to re-log in when token is refreshed
 - '/*' page for non-existent routes
+
 ![](./media/404.png)
 
 ## User Stories
