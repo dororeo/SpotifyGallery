@@ -220,6 +220,16 @@ const Home = () => {
     }, [token]);
 
     useEffect(() => {
+        const storedToken = localStorage.getItem('token');
+        if (!storedToken) {
+            alert("Please log in again.");
+            window.location.href = "https://spotify-gallery-git-main-dororeo.vercel.app/";
+        } else {
+            setToken(storedToken);
+        }
+    }, []);
+
+    useEffect(() => {
         if(window.location.hash){
             const hash = window.location.hash;
             const token = getParamsfromHash(hash);
