@@ -175,7 +175,7 @@ const Home = () => {
 
     const handleClickA = () => {
         if (!token) {
-            alert("Please log in to view your top artists.");
+            alert("Please log out and log in again.");
             return;
         }
         getTopArtists();
@@ -184,7 +184,7 @@ const Home = () => {
 
     const handleClickT = () => {
         if (!token) {
-            alert("Please log in to view your top artists.");
+            alert("Please log out and log in again.");
             return;
         }
         getTopTracks();
@@ -206,10 +206,6 @@ const Home = () => {
     }
     
     const downloadImg = () => {
-        if (!token) {
-            alert("Please log in to view your top artists.");
-            return;
-        }
         const container = document.getElementById('screenshot');
         
         const backgroundColor = '#ffffff';
