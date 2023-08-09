@@ -4,6 +4,11 @@
   margin: 0 auto;
 }
 
+#username {
+  color: #1DB954;
+  font-size: 15px;
+}
+
 .app-container {
   width: 500px;
   margin: 0 auto;
@@ -13,6 +18,7 @@ body{
   background: rgb(0,0,0);
   background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(121,121,121,1) 100%);
   background-size: cover;
+  background-color: rgb(95, 95, 95);
   margin: 0 auto;
 }
 
@@ -42,7 +48,7 @@ img {
 }
 
 .grid-title {
-  font-size: 7px;
+  font-size: 8px;
   padding-top: 5px;
   padding-bottom: 7px;
   width: 80px;
@@ -55,7 +61,7 @@ img {
 
 .text {
   margin-top: 25px;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: bold;
   text-transform: capitalize;
 }
@@ -69,9 +75,12 @@ img {
 
 .radio {
   color: white;
+  cursor: pointer;
   font-size: 10px;
   margin-top: 12px;
   margin-bottom: 10px;
+  text-align: left;
+  accent-color: #1DB954;
 }
 
 .button {
@@ -111,7 +120,7 @@ img {
   justify-content: space-between;
 }
 
-h5{
+h4{
   margin-top: 10px;
   margin-bottom: 10px;
 }

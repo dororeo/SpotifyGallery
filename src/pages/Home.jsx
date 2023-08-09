@@ -1,4 +1,4 @@
-import axios, { all } from 'axios';
+import axios from 'axios';
 import { useEffect , useState} from 'react';
 import moment from 'moment';
 import html2canvas from 'html2canvas';
@@ -151,6 +151,36 @@ const Home = () => {
         }
     }
 
+    const changeColorA = () => {
+       const buttonA = document.getElementById('topA');
+       const buttonT = document.getElementById('topT');
+
+        buttonA.style.background = "#1DB954"
+        buttonA.style.color = "black"
+        buttonT.style.background = "black"
+        buttonT.style.color = "white"
+    }
+
+    const changeColorT = () => {
+        const buttonA = document.getElementById('topA');
+        const buttonT = document.getElementById('topT');
+ 
+         buttonA.style.background = "black"
+         buttonA.style.color = "white"
+         buttonT.style.background = "#1DB954"
+         buttonT.style.color = "black"
+    }
+
+    const handleClickA = () => {
+        getTopArtists();
+        changeColorA();
+    }
+
+    const handleClickT = () => {
+        getTopTracks();
+        changeColorT();
+    }
+
     const getTopArtists = () => {
         setClickTopArtists(true);
         setClickTopTracks(false);
@@ -166,11 +196,10 @@ const Home = () => {
     }
 
     const downloadImg = () => {
-        const table = document.getElementById('screenshot')
-
-        html2canvas(table).then((canvas) => {
+        const gallery = document.getElementById('screenshot');
+        html2canvas(gallery).then((canvas) => {
             const link = document.createElement('a');
-            link.download = 'table.png';
+            link.download = 'gallery.png';
             link.href = canvas.toDataURL('image/png');
             link.click();
         })
@@ -191,24 +220,29 @@ const Home = () => {
         getData(PROFILE_ENDPOINT, setProfile);
     },[])
 
+    const logOut = () => {
+        localStorage.removeItem('token');
+        window.location.href="https://spotify-gallery-git-main-dororeo.vercel.app/"
+    }
+
 
     return ( 
         <div>
         <div id='screenshot'>
             <h2>Spotify Gallery</h2>
                 <h4>Discover Your Top Tracks & Artists</h4>
-                <button className='button' onClick={getTopArtists}>TOP ARTISTS</button>
-                <button className='button' onClick={getTopTracks}>TOP TRACKS</button>
+                <button className='button' id='topA' onClick={handleClickA}>TOP ARTISTS</button>
+                <button className='button' id='topT' onClick={handleClickT}>TOP TRACKS</button>
             {token &&
             <div>
                 <div className='customized-container'>
-                <div className='text'>Hi {profile.display_name}!</div>
+                <div className='text'>Hi <span id='username'>{profile.display_name}</span>!</div>
                 <div className='text'>{date + " " + time}</div>
                 </div>
                 {topTracks.items && clickTopTracks &&
                 <div>
                 <div className='choice-container'>
-                <h5 id='choice-text'>Top Tracks</h5>
+                <h4>Top Tracks</h4>
 
                 <input className='radio' type='radio' id='last-month' name='result-type' value="Last Month" onClick={handleMonthResultT}/>
                 <label className='radio'>Last Month</label>
@@ -241,13 +275,13 @@ const Home = () => {
                 {topArtists.items && clickTopArtists &&
                 <div>
                 <div className='choice-container'>
-                <h5 id='choice-text'>Top Artist</h5>
+                <h4>Top Artist</h4>
 
                 <input className='radio' type='radio' id='last-month' name='result-type' value="Last Month" onClick={handleMonthResultA}/>
-                <label className='radio'>Last Month</label>
+                <label className='radio'><span>Last Month</span></label>
 
                 <input className='radio' type='radio' id='all-time' name='result-type' value="All Time" onClick={handleAllTimeResultA}/>
-                <label className='radio'>All Time</label>
+                <label className='radio'><span>All Time</span></label>
 
                 </div>
                 <div className='grid-container'>
@@ -278,7 +312,10 @@ const Home = () => {
             </div>
             }
         </div>
-        <button className='button' onClick={downloadImg}>Save Image</button>
+        {(topTracks.items || topArtists.items) &&
+            <button className='button' onClick={downloadImg}>Save Image</button>
+        }
+        <div className='button' onClick={logOut}>Log Out</div>
         </div>
      );
 }
