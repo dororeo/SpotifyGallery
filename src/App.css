@@ -1,7 +1,7 @@
 #screenshot {
   width: 400px;
-  height: 1000px;
   margin: 0 auto;
+  height: auto;
 }
 
 #username {
@@ -27,7 +27,7 @@ img {
 }
 
 .selection-text {
-  padding-top: 100px;
+  padding-top: 50px;
   width: 210px;
   margin: 0 auto;
 }
@@ -67,10 +67,10 @@ img {
 }
 
 .App {
-  margin-top: 100px;
   text-align: center;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
   color: white;
+  padding: 100px;
 }
 
 .radio {

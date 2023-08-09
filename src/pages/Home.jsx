@@ -4,6 +4,9 @@ import moment from 'moment';
 import html2canvas from 'html2canvas';
 
 
+
+
+
 const Home = () => {
     const [token, setToken] = useState('');
 
@@ -197,7 +200,10 @@ const Home = () => {
 
     const downloadImg = () => {
         const gallery = document.getElementById('screenshot');
-        html2canvas(gallery).then((canvas) => {
+        html2canvas(gallery, {
+            backgroundColor:"black",
+            allowTaint:"true",
+        }).then((canvas) => {
             const link = document.createElement('a');
             link.download = 'gallery.png';
             link.href = canvas.toDataURL('image/png');
@@ -228,11 +234,11 @@ const Home = () => {
 
     return ( 
         <div>
-        <div id='screenshot'>
             <h2>Spotify Gallery</h2>
                 <h4>Discover Your Top Tracks & Artists</h4>
                 <button className='button' id='topA' onClick={handleClickA}>TOP ARTISTS</button>
                 <button className='button' id='topT' onClick={handleClickT}>TOP TRACKS</button>
+            <div id='screenshot'>
             {token &&
             <div>
                 <div className='customized-container'>
@@ -275,7 +281,7 @@ const Home = () => {
                 {topArtists.items && clickTopArtists &&
                 <div>
                 <div className='choice-container'>
-                <h4>Top Artist</h4>
+                <h4>Top Artists</h4>
 
                 <input className='radio' type='radio' id='last-month' name='result-type' value="Last Month" onClick={handleMonthResultA}/>
                 <label className='radio'><span>Last Month</span></label>

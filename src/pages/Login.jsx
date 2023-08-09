@@ -10,6 +10,7 @@ const Login = () => {
         <div>
             <h2>Spotify Gallery</h2>
             <h4>Discover Your Top Tracks & Artists</h4>
+            <br />
             <button className="button" onClick={() => handleLogin()}>LOG IN WITH SPOTIFY</button>
         </div>
      );
