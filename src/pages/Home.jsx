@@ -245,7 +245,7 @@ const Home = () => {
   const logOut = () => {
     localStorage.removeItem("token");
     window.location.href =
-      "https://spotify-gallery-git-main-dororeo.vercel.app/";
+      "https://spotify-gallery-dororeo.vercel.app/";
   };
 
   return (
